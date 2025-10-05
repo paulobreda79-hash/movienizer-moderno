@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sincronização na Nuvem - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cloud-sync.css" />
+</head>
+<body>
+
+  <div class="cloud-sync-container">
+
+    <!-- Header -->
+    <header class="cloud-header">
+      <h1>Sincronização na Nuvem</h1>
+      <div class="header-actions">
+        <button id="btn-sync-now" class="btn-primary">Sincronizar Agora</button>
+        <button id="btn-pause-resume" class="btn-secondary">Pausar</button>
+      </div>
+    </header>
+
+    <!-- Status da Sincronização -->
+    <div class="sync-status">
+      <div class="status-card">
+        <h3>Status</h3>
+        <p id="sync-status">Aguardando...</p>
+      </div>
+      <div class="status-card">
+        <h3>Última Sincronização</h3>
+        <p id="last-sync">Nunca</p>
+      </div>
+      <div class="status-card">
+        <h3>Conflitos</h3>
+        <p id="conflict-count">0</p>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <div class="sync-controls">
+      <div class="control-group">
+        <label>Tipo de Sincronização:</label>
+        <select id="sync-type">
+          <option value="full">Completa</option>
+          <option value="incremental">Incremental</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Frequência:</label>
+        <select id="sync-frequency">
+          <option value="manual">Manual</option>
+          <option value="hourly">A cada hora</option>
+          <option value="daily">Diariamente</option>
+          <option value="weekly">Semanalmente</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Criptografia:</label>
+        <select id="encryption-enabled">
+          <option value="true">Ativada</option>
+          <option value="false">Desativada</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Backups Disponíveis -->
+    <div class="backups-section">
+      <div class="section-header">
+        <h3>Backups Disponíveis</h3>
+        <button id="btn-refresh-backups" class="btn-secondary">Atualizar</button>
+      </div>
+      <div class="backups-list" id="backups-list">
+        <!-- Backups serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Histórico de Sincronização -->
+    <div class="history-section">
+      <h3>Histórico de Sincronização</h3>
+      <div class="history-list" id="history-list">
+        <!-- Histórico será injetado aqui -->
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="confirm-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Confirmar Sincronização</h3>
+        <p>Você tem certeza que deseja sincronizar todos os dados agora?</p>
+        <div class="modal-actions">
+          <button id="btn-confirm-sync" class="btn-primary">Sincronizar</button>
+          <button id="btn-cancel-sync" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Restauração -->
+    <div class="modal" id="restore-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Restaurar Backup</h3>
+        <p id="restore-message">Você tem certeza que deseja restaurar este backup?</p>
+        <div class="modal-actions">
+          <button id="btn-confirm-restore" class="btn-primary">Restaurar</button>
+          <button id="btn-cancel-restore" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="cloud-sync.js"></script>
+</body>
+</html>

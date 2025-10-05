@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador de Streaming - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="streaming-manager.css" />
+</head>
+<body>
+
+  <div class="streaming-manager-container">
+
+    <!-- Header -->
+    <header class="streaming-header">
+      <h1>Gerenciador de Streaming</h1>
+      <div class="header-actions">
+        <button id="btn-check-all" class="btn-primary">Verificar Todos</button>
+        <button id="btn-refresh" class="btn-secondary">Atualizar</button>
+      </div>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="streaming-stats">
+      <div class="stat-card">
+        <h3>Total de Filmes</h3>
+        <p id="total-movies">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Disponíveis</h3>
+        <p id="available-movies">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Plataformas</h3>
+        <p id="total-platforms">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Última Verificação</h3>
+        <p id="last-check">Nunca</p>
+      </div>
+    </div>
+
+    <!-- Configurações -->
+    <div class="streaming-settings">
+      <h3>Configurações de Streaming</h3>
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Verificação Automática:</label>
+          <select id="auto-check-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência:</label>
+          <select id="check-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Plataformas Ativas:</label>
+          <div class="platforms-checkboxes" id="platforms-checkboxes">
+            <!-- Checkboxes serão injetados aqui -->
+          </div>
+        </div>
+        <div class="setting-group">
+          <label>Notificações:</label>
+          <select id="notifications-enabled">
+            <option value="true">Ativadas</option>
+            <option value="false">Desativadas</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-save-settings" class="btn-primary">Salvar Configurações</button>
+    </div>
+
+    <!-- Plataformas Populares -->
+    <div class="platforms-section">
+      <div class="section-header">
+        <h3>Plataformas Populares</h3>
+        <div class="section-actions">
+          <button id="btn-refresh-platforms" class="btn-secondary">Atualizar</button>
+        </div>
+      </div>
+      <div class="platforms-grid" id="platforms-grid">
+        <!-- Plataformas serão injetadas aqui -->
+      </div>
+    </div>
+
+    <!-- Filmes Disponíveis -->
+    <div class="movies-section">
+      <div class="section-header">
+        <h3>Filmes Disponíveis</h3>
+        <div class="section-actions">
+          <select id="filter-platform">
+            <option value="all">Todas as Plataformas</option>
+            <!-- Opções serão injetadas aqui -->
+          </select>
+          <input type="text" id="search-movies" placeholder="Buscar filmes..." />
+        </div>
+      </div>
+      <div class="movies-grid" id="movies-grid">
+        <!-- Filmes serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Modal de Progresso -->
+    <div class="modal" id="progress-modal" style="display:none;">
+      <div class="modal-content">
+        <h3 id="progress-title">Processando...</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p id="progress-message">Aguarde...</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="streaming-manager.js"></script>
+</body>
+</html>

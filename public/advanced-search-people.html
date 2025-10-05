@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Busca Avançada de Pessoas - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="advanced-search-people.css" />
+</head>
+<body>
+
+  <div class="advanced-search-container">
+
+    <!-- Header -->
+    <header class="search-header">
+      <h1>Busca Avançada de Pessoas</h1>
+      <div class="header-actions">
+        <button id="btn-reset-filters" class="btn-secondary">Limpar Filtros</button>
+        <button id="btn-search" class="btn-primary">Buscar</button>
+      </div>
+    </header>
+
+    <!-- Filtros avançados -->
+    <div class="advanced-filters">
+      <div class="filter-group">
+        <label>Nome:</label>
+        <input type="text" id="filter-name" placeholder="Digite o nome da pessoa" />
+      </div>
+
+      <div class="filter-group">
+        <label>Função:</label>
+        <select id="filter-role">
+          <option value="all">Todas as funções</option>
+          <option value="actor">Ator</option>
+          <option value="director">Diretor</option>
+          <option value="producer">Produtor</option>
+          <option value="writer">Roteirista</option>
+          <option value="composer">Compositor</option>
+          <option value="cinematographer">Cinematógrafo</option>
+          <option value="editor">Editor</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Ano de Nascimento:</label>
+        <div class="range-inputs">
+          <input type="number" id="filter-birth-year-min" placeholder="Min" min="1900" max="2024" />
+          <span>até</span>
+          <input type="number" id="filter-birth-year-max" placeholder="Max" min="1900" max="2024" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>País de Nascimento:</label>
+        <input type="text" id="filter-birth-place" placeholder="Ex: EUA, Reino Unido..." />
+      </div>
+
+      <div class="filter-group">
+        <label>Filme Participado:</label>
+        <input type="text" id="filter-movie-title" placeholder="Título do filme" />
+      </div>
+
+      <div class="filter-group">
+        <label>Gênero do Filme:</label>
+        <select id="filter-movie-genre">
+          <option value="all">Todos os gêneros</option>
+          <option value="action">Ação</option>
+          <option value="comedy">Comédia</option>
+          <option value="drama">Drama</option>
+          <option value="horror">Terror</option>
+          <option value="sci-fi">Ficção Científica</option>
+          <option value="romance">Romance</option>
+          <option value="thriller">Suspense</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Ano do Filme:</label>
+        <div class="range-inputs">
+          <input type="number" id="filter-movie-year-min" placeholder="Min" min="1900" max="2024" />
+          <span>até</span>
+          <input type="number" id="filter-movie-year-max" placeholder="Max" min="1900" max="2024" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Estúdio do Filme:</label>
+        <input type="text" id="filter-studio" placeholder="Ex: Paramount, Disney..." />
+      </div>
+
+      <div class="filter-group">
+        <label>Ordenar por:</label>
+        <select id="sort-by">
+          <option value="name">Nome (A-Z)</option>
+          <option value="birth-year">Ano de Nascimento</option>
+          <option value="role">Função</option>
+          <option value="movie-count">Número de Filmes</option>
+          <option value="popularity">Popularidade</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Botões de ação -->
+    <div class="search-actions">
+      <button id="btn-update-all" class="btn-secondary">Atualizar Todos os Dados</button>
+      <button id="btn-download-results" class="btn-primary">Exportar Resultados</button>
+    </div>
+
+    <!-- Resultados -->
+    <div class="results-container">
+      <h3>Resultados:</h3>
+      <div class="people-grid" id="results-grid">
+        <!-- Resultados serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <button id="btn-prev" disabled>Anterior</button>
+      <span id="page-info">Página 1 de 1</span>
+      <button id="btn-next">Próxima</button>
+    </div>
+
+  </div>
+
+  <script src="advanced-search-people.js"></script>
+</body>
+</html>

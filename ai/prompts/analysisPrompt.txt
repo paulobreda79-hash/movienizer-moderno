@@ -1,0 +1,6 @@
+Analisa o filme "{{title}}" com base na classificação média e opiniões dos utilizadores.
+
+Classificação IMDb: {{rating}}
+Críticas dos utilizadores: {{reviews}}
+
+Produz uma análise breve (3 a 5 frases) que comente os pontos fortes, fracos e estilo cinematográfico.

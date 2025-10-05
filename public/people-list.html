@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Pessoas - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="people-list.css" />
+</head>
+<body>
+
+  <div class="people-list-container">
+
+    <!-- Header com pesquisa e ações -->
+    <header class="list-header">
+      <h1>Lista de Pessoas</h1>
+      <div class="header-controls">
+        <input type="text" id="search-input" placeholder="🔍 Pesquisar pessoa..." />
+        <button id="btn-add-person" class="btn-primary"><i class="icon-plus"></i> Adicionar Pessoa</button>
+      </div>
+    </header>
+
+    <!-- Filtros e ordenação -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>Filtrar por função:</label>
+        <select id="filter-role">
+          <option value="all">Todas as funções</option>
+          <option value="actor">Atores</option>
+          <option value="director">Diretores</option>
+          <option value="producer">Produtores</option>
+          <option value="writer">Roteiristas</option>
+          <option value="composer">Compositores</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Ordenar por:</label>
+        <select id="sort-by">
+          <option value="name">Nome (A-Z)</option>
+          <option value="birth-year">Ano de Nascimento</option>
+          <option value="role">Função</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grade de pessoas -->
+    <div class="people-grid" id="people-grid">
+      <!-- Cartões de pessoas serão injetados aqui -->
+    </div>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <button id="btn-prev" disabled>Anterior</button>
+      <span id="page-info">Página 1 de 5</span>
+      <button id="btn-next">Próxima</button>
+    </div>
+
+    <!-- Modal de Adição -->
+    <div class="modal" id="add-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Adicionar Pessoa</h3>
+        <form id="add-form">
+          <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="add-name" required />
+          </div>
+          <div class="form-group">
+            <label>Função:</label>
+            <select id="add-role">
+              <option value="actor">Ator</option>
+              <option value="director">Diretor</option>
+              <option value="producer">Produtor</option>
+              <option value="writer">Roteirista</option>
+              <option value="composer">Compositor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Imagem URL:</label>
+            <input type="text" id="add-image" />
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Adicionar</button>
+            <button type="button" id="btn-cancel-add" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="people-list.js"></script>
+</body>
+</html>

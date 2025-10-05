@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes da Pessoa - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="person-detail.css" />
+</head>
+<body>
+
+  <div class="person-detail-container">
+
+    <!-- Header com botões de navegação -->
+    <header class="detail-header">
+      <button id="btn-back" class="btn-icon"><i class="icon-arrow-left"></i> Voltar</button>
+      <h1 id="person-name">Nome da Pessoa</h1>
+      <div class="header-actions">
+        <button id="btn-edit" class="btn-icon"><i class="icon-pencil"></i> Editar</button>
+        <button id="btn-follow" class="btn-icon"><i class="icon-heart"></i> Seguir</button>
+        <button id="btn-favorite" class="btn-icon"><i class="icon-star-empty"></i> Favorito</button>
+      </div>
+    </header>
+
+    <!-- Área principal com imagem e informações -->
+    <div class="person-content">
+
+      <!-- Imagem da pessoa -->
+      <div class="image-section">
+        <img id="person-image" src="https://via.placeholder.com/300x400?text=Foto" alt="Foto da Pessoa" />
+        <div class="image-actions">
+          <button id="btn-download-image" class="btn-small"><i class="icon-download"></i> Baixar</button>
+          <button id="btn-refresh-image" class="btn-small"><i class="icon-refresh"></i> Atualizar</button>
+        </div>
+      </div>
+
+      <!-- Informações da pessoa -->
+      <div class="info-section">
+        <div class="info-row">
+          <span class="label">Nome:</span>
+          <span id="person-full-name">Nome Completo</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Data de Nascimento:</span>
+          <span id="person-birth-date">01/01/1970</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Local de Nascimento:</span>
+          <span id="person-birth-place">Nova York, EUA</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Ocupações:</span>
+          <span id="person-roles">Ator, Produtor, Diretor</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Altura:</span>
+          <span id="person-height">1.80 m</span>
+        </div>
+
+        <!-- Links externos -->
+        <div class="links-section">
+          <h3>Links Externos</h3>
+          <ul class="external-links">
+            <li><a href="#" id="link-imdb-person">IMDb</a></li>
+            <li><a href="#" id="link-adorocinema-person">AdoroCinema</a></li>
+            <li><a href="#" id="link-justdial-person">JustDial</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Abas: Geral, Biografia, Filmes -->
+    <div class="tabs-container">
+      <div class="tab-bar">
+        <button class="tab active" data-tab="general">Geral</button>
+        <button class="tab" data-tab="biography">Biografia</button>
+        <button class="tab" data-tab="movies">Filmes</button>
+      </div>
+
+      <div class="tab-content">
+
+        <!-- Aba Geral -->
+        <div id="general" class="tab-pane active">
+          <h3>Informações Gerais</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <strong>Nome Completo:</strong>
+              <span id="person-full-name-detail">Nome Completo</span>
+            </div>
+            <div class="info-item">
+              <strong>Apelido:</strong>
+              <span id="person-nickname">N/A</span>
+            </div>
+            <div class="info-item">
+              <strong>Altura:</strong>
+              <span id="person-height-detail">1.80 m</span>
+            </div>
+            <div class="info-item">
+              <strong>Data de Nascimento:</strong>
+              <span id="person-birth-date-detail">01/01/1970</span>
+            </div>
+            <div class="info-item">
+              <strong>Local de Nascimento:</strong>
+              <span id="person-birth-place-detail">Nova York, EUA</span>
+            </div>
+            <div class="info-item">
+              <strong>Ocupações:</strong>
+              <span id="person-roles-detail">Ator, Produtor, Diretor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aba Biografia -->
+        <div id="biography" class="tab-pane">
+          <h3>Biografia</h3>
+          <p id="person-biography">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+
+        <!-- Aba Filmes -->
+        <div id="movies" class="tab-pane">
+          <h3>Filmes e Séries</h3>
+          <ul id="person-movies-list" class="movies-list">
+            <li><a href="#" data-id="1">O Poderoso Chefão</a> — <span>1972</span></li>
+            <li><a href="#" data-id="2">Apocalypse Now</a> — <span>1979</span></li>
+            <li><a href="#" data-id="3">Touro Indomável</a> — <span>1980</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer com ações rápidas -->
+    <footer class="detail-footer">
+      <button id="btn-add-to-watchlist" class="btn-primary"><i class="icon-plus"></i> Adicionar à Watchlist</button>
+      <button id="btn-share" class="btn-secondary"><i class="icon-share"></i> Compartilhar</button>
+      <button id="btn-delete" class="btn-danger"><i class="icon-trash"></i> Remover</button>
+    </footer>
+
+    <!-- Modal de Edição -->
+    <div class="modal" id="edit-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Editar Pessoa</h3>
+        <form id="edit-form">
+          <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="edit-name" required />
+          </div>
+          <div class="form-group">
+            <label>Nome Completo:</label>
+            <input type="text" id="edit-full-name" />
+          </div>
+          <div class="form-group">
+            <label>Data de Nascimento:</label>
+            <input type="text" id="edit-birth-date" />
+          </div>
+          <div class="form-group">
+            <label>Ocupações:</label>
+            <input type="text" id="edit-roles" placeholder="Ator, Diretor, etc." />
+          </div>
+          <div class="form-group">
+            <label>Imagem URL:</label>
+            <input type="text" id="edit-image" />
+          </div>
+          <div class="form-group">
+            <label>Biografia:</label>
+            <textarea id="edit-biography" rows="4"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Salvar</button>
+            <button type="button" id="btn-cancel-edit" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="person-detail.js"></script>
+</body>
+</html>

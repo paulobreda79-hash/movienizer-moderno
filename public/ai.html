@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MovieNizer - IA de Filmes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; color: #333; padding: 20px; }
+    h1 { color: #2c3e50; }
+    .container { max-width: 700px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input[type="number"] { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    button { padding: 10px 15px; margin-top: 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    button#analyze { background: #3498db; color: white; margin-right: 10px; }
+    button#refresh { background: #e67e22; color: white; }
+    .output { margin-top: 20px; padding: 15px; background: #ecf0f1; border-radius: 5px; white-space: pre-wrap; }
+    .loading { color: #2980b9; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 MovieNizer - Análise de Filmes com IA</h1>
+
+    <label for="movieId">ID do Filme:</label>
+    <input type="number" id="movieId" placeholder="Insere o ID do filme">
+
+    <button id="analyze">Analisar</button>
+    <button id="refresh">🔄 Atualizar análise (forçar refresh)</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    const output = document.getElementById('output');
+    const movieIdInput = document.getElementById('movieId');
+
+    async function fetchAnalysis(forceRefresh = false) {
+      const movieId = movieIdInput.value.trim();
+      if (!movieId) {
+        output.textContent = "⚠️ Por favor insere um ID de filme válido.";
+        return;
+      }
+
+      output.innerHTML = "<span class='loading'>⏳ A processar análise...</span>";
+
+      try {
+        const url = `/api/ai/analyze/${movieId}${forceRefresh ? '?refresh=true' : ''}`;
+        const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const data = await response.json();
+
+        if (!data.success) {
+          output.textContent = `❌ Erro: ${data.error || 'Desconhecido'}`;
+          return;
+        }
+
+        const { description, analysis, summary, cached, refreshed } = data.data;
+        output.innerHTML = `
+          <strong>Descrição:</strong>\n${description}\n\n
+          <strong>Análise:</strong>\n${analysis}\n\n
+          <strong>Resumo:</strong>\n${summary}\n\n
+          <em>Cache: ${cached ? 'Sim' : 'Não'} | Atualizado: ${refreshed ? 'Sim' : 'Não'}</em>
+        `;
+      } catch (err) {
+        output.textContent = `❌ Erro ao conectar com o servidor: ${err.message}`;
+      }
+    }
+
+    document.getElementById('analyze').addEventListener('click', () => fetchAnalysis(false));
+    document.getElementById('refresh').addEventListener('click', () => fetchAnalysis(true));
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h1>MovieNizer - Bem-vindo, <span id="username">Usuário</span></h1>
+      <div class="header-actions">
+        <button id="btn-logout" class="btn-secondary">Sair</button>
+      </div>
+    </header>
+
+    <!-- Menu de navegação -->
+    <nav class="dashboard-nav">
+      <a href="/movies-list.html" class="nav-item">Filmes</a>
+      <a href="/people-list.html" class="nav-item">Pessoas</a>
+      <a href="/advanced-search-movies.html" class="nav-item">Busca Avançada</a>
+      <a href="/reports.html" class="nav-item">Relatórios</a>
+      <a href="/scrape-manager.html" class="nav-item">Scrapers</a>
+      <a href="/settings.html" class="nav-item">Configurações</a>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <div class="dashboard-content">
+      <div class="stats-section">
+        <div class="stat-card">
+          <h3>Meus Filmes</h3>
+          <p id="my-movies-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Meus Favoritos</h3>
+          <p id="my-favorites-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Último Login</h3>
+          <p id="last-login">Nunca</p>
+        </div>
+      </div>
+
+      <!-- Últimos filmes adicionados -->
+      <div class="recent-section">
+        <h3>Últimos Filmes Adicionados</h3>
+        <div id="recent-movies" class="movies-grid">
+          <!-- Filmes serão injetados aqui -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

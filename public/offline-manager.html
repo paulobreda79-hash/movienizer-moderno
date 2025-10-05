@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador Offline - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="offline-manager.css" />
+</head>
+<body>
+
+  <div class="offline-manager-container">
+
+    <!-- Header -->
+    <header class="offline-header">
+      <h1>Gerenciador Offline</h1>
+      <div class="header-actions">
+        <button id="btn-enable-offline" class="btn-primary">Ativar Modo Offline</button>
+        <button id="btn-disable-offline" class="btn-secondary">Desativar Modo Offline</button>
+        <button id="btn-sync-now" class="btn-primary">Sincronizar Agora</button>
+      </div>
+    </header>
+
+    <!-- Status Offline -->
+    <div class="offline-status">
+      <div class="status-card">
+        <h3>Status Offline</h3>
+        <p id="offline-status">Desativado</p>
+      </div>
+      <div class="status-card">
+        <h3>Conexão</h3>
+        <p id="connection-status">Online</p>
+      </div>
+      <div class="status-card">
+        <h3>Dados Locais</h3>
+        <p id="local-data-size">0 MB</p>
+      </div>
+      <div class="status-card">
+        <h3>Última Sincronização</h3>
+        <p id="last-sync">Nunca</p>
+      </div>
+    </div>
+
+    <!-- Configurações Offline -->
+    <div class="offline-settings">
+      <h3>Configurações Offline</h3>
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Modo Offline:</label>
+          <select id="offline-mode-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Sincronização Automática:</label>
+          <select id="auto-sync-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência de Sincronização:</label>
+          <select id="sync-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Backup Automático:</label>
+          <select id="auto-backup-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência de Backup:</label>
+          <select id="backup-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Retenção de Dados (dias):</label>
+          <input type="number" id="data-retention" min="1" max="365" value="30" />
+        </div>
+      </div>
+      <button id="btn-save-settings" class="btn-primary">Salvar Configurações</button>
+    </div>
+
+    <!-- Dados Locais -->
+    <div class="local-data-section">
+      <div class="section-header">
+        <h3>Dados Locais</h3>
+        <div class="section-actions">
+          <button id="btn-refresh-data" class="btn-secondary">Atualizar</button>
+          <button id="btn-clear-data" class="btn-danger">Limpar Dados</button>
+        </div>
+      </div>
+      <div class="data-stats">
+        <div class="stat-card">
+          <h3>Filmes</h3>
+          <p id="local-movies-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Pessoas</h3>
+          <p id="local-people-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Ratings</h3>
+          <p id="local-ratings-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Watchlist</h3>
+          <p id="local-watchlist-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Favoritos</h3>
+          <p id="local-favorites-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Lembretes</h3>
+          <p id="local-reminders-count">0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backup e Restauração -->
+    <div class="backup-section">
+      <div class="section-header">
+        <h3>Backup e Restauração</h3>
+        <div class="section-actions">
+          <button id="btn-create-backup" class="btn-primary">Criar Backup</button>
+          <button id="btn-restore-backup" class="btn-secondary">Restaurar Backup</button>
+        </div>
+      </div>
+      <div class="backup-list" id="backup-list">
+        <!-- Backups serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Modal de Progresso -->
+    <div class="modal" id="progress-modal" style="display:none;">
+      <div class="modal-content">
+        <h3 id="progress-title">Processando...</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p id="progress-message">Aguarde...</p>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="confirm-modal" style="display:none;">
+      <div class="modal-content">
+        <h3 id="confirm-title">Confirmar Ação</h3>
+        <p id="confirm-message">Tem certeza que deseja continuar?</p>
+        <div class="modal-actions">
+          <button id="btn-confirm-action" class="btn-primary">Confirmar</button>
+          <button id="btn-cancel-action" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="offline-manager.js"></script>
+</body>
+</html>

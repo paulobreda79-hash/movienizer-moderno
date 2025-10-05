@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enviar Relatório por E-mail - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="email-reports.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <div class="email-reports-container">
+
+    <!-- Header -->
+    <header class="email-header">
+      <h1>Enviar Relatório por E-mail</h1>
+      <div class="header-actions">
+        <button id="btn-preview" class="btn-secondary">Pré-visualizar</button>
+        <button id="btn-send" class="btn-primary">Enviar E-mail</button>
+      </div>
+    </header>
+
+    <!-- Formulário de envio -->
+    <div class="email-form">
+      <div class="form-group">
+        <label>Para:</label>
+        <input type="email" id="email-to" placeholder="email@exemplo.com" multiple />
+        <small>Separar múltiplos e-mails com vírgula</small>
+      </div>
+
+      <div class="form-group">
+        <label>Assunto:</label>
+        <input type="text" id="email-subject" value="Relatório de Filmes - MovieNizer" />
+      </div>
+
+      <div class="form-group">
+        <label>Mensagem:</label>
+        <textarea id="email-body" rows="6" placeholder="Escreva uma mensagem opcional para acompanhar o relatório...">Olá,
+
+Segue em anexo o relatório com as estatísticas da minha coleção de filmes e pessoas no MovieNizer.
+
+Inclui gráficos de filmes por gênero, rating médio, top 10 filmes e mais.
+
+Abraços,
+</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Anexos:</label>
+        <div class="attachments">
+          <label class="attachment-item">
+            <input type="checkbox" id="attach-pdf" checked />
+            <span>Relatório em PDF</span>
+          </label>
+          <label class="attachment-item">
+            <input type="checkbox" id="attach-json" />
+            <span>Dados em JSON</span>
+          </label>
+          <label class="attachment-item">
+            <input type="checkbox" id="attach-images" />
+            <span>Imagens dos pôsteres</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filtros para o relatório -->
+      <div class="form-group">
+        <label>Filtros do Relatório:</label>
+        <div class="filters-section">
+          <div class="filter-group">
+            <label>Período:</label>
+            <select id="filter-period">
+              <option value="all">Todos os anos</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="last-5-years">Últimos 5 anos</option>
+              <option value="last-year">Último ano</option>
+              <option value="last-month">Último mês</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Tipo de Relatório:</label>
+            <select id="filter-report-type">
+              <option value="summary">Resumo Geral</option>
+              <option value="movies">Relatório de Filmes</option>
+              <option value="people">Relatório de Pessoas</option>
+              <option value="statistics">Estatísticas Avançadas</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Gênero:</label>
+            <select id="filter-genre">
+              <option value="all">Todos os gêneros</option>
+              <option value="action">Ação</option>
+              <option value="comedy">Comédia</option>
+              <option value="drama">Drama</option>
+              <option value="horror">Terror</option>
+              <option value="sci-fi">Ficção Científica</option>
+              <option value="romance">Romance</option>
+              <option value="thriller">Suspense</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pré-visualização -->
+    <div class="preview-section" id="preview-section" style="display:none;">
+      <h3>Pré-visualização do E-mail</h3>
+      <div class="preview-content">
+        <div class="preview-header">
+          <p><strong>Para:</strong> <span id="preview-to"></span></p>
+          <p><strong>Assunto:</strong> <span id="preview-subject"></span></p>
+        </div>
+        <div class="preview-body">
+          <p id="preview-body-text"></p>
+        </div>
+        <div class="preview-attachments">
+          <p><strong>Anexos:</strong></p>
+          <ul id="preview-attachments-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div class="modal" id="confirmation-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>E-mail enviado com sucesso!</h3>
+        <p>O relatório foi enviado para:</p>
+        <ul id="sent-emails-list"></ul>
+        <button id="btn-close-modal" class="btn-primary">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="email-reports.js"></script>
+</body>
+</html>

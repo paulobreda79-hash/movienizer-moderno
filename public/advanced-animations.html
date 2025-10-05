@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Templates com Animações Avançadas - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="advanced-animations.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+</head>
+<body>
+
+  <div class="advanced-animations-container">
+
+    <!-- Header -->
+    <header class="templates-header">
+      <h1>Templates com Animações Avançadas</h1>
+      <div class="header-actions">
+        <button id="btn-preview" class="btn-primary">Pré-visualizar</button>
+        <button id="btn-save-template" class="btn-secondary">Salvar Template</button>
+        <button id="btn-load-template" class="btn-secondary">Carregar Template</button>
+        <button id="btn-export" class="btn-secondary">Exportar HTML</button>
+        <button id="btn-play-animations" class="btn-secondary">Reproduzir Animações</button>
+      </div>
+    </header>
+
+    <!-- Navegação de templates -->
+    <div class="templates-nav">
+      <button class="template-btn active" data-template="dashboard">Dashboard Completo</button>
+      <button class="template-btn" data-template="summary">Resumo Estatístico</button>
+      <button class="template-btn" data-template="movies">Relatório de Filmes</button>
+      <button class="template-btn" data-template="people">Relatório de Pessoas</button>
+      <button class="template-btn" data-template="awards">Prêmios e Indicações</button>
+    </div>
+
+    <!-- Editor de template -->
+    <div class="template-editor">
+      <div class="editor-section">
+        <h3>Personalização</h3>
+        <div class="customization-options">
+          <div class="option-group">
+            <label>Cor de Fundo:</label>
+            <input type="color" id="bg-color" value="#ffffff" />
+          </div>
+          <div class="option-group">
+            <label>Cor de Texto:</label>
+            <input type="color" id="text-color" value="#333333" />
+          </div>
+          <div class="option-group">
+            <label>Fonte:</label>
+            <select id="font-family">
+              <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
+              <option value="Georgia, serif">Georgia</option>
+              <option value="Monaco, monospace">Monaco</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Título:</label>
+            <input type="text" id="template-title" value="Relatório de Estatísticas - MovieNizer" />
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-section">
+        <h3>Conteúdo do Template</h3>
+        <div id="editor"></div>
+      </div>
+
+      <!-- Controles de animação -->
+      <div class="editor-section">
+        <h3>Controles de Animação</h3>
+        <div class="animation-controls">
+          <div class="control-group">
+            <label>Animação de Entrada:</label>
+            <select id="entry-animation">
+              <option value="fadeIn">Fade In</option>
+              <option value="slideInUp">Slide In Up</option>
+              <option value="bounceIn">Bounce In</option>
+              <option value="zoomIn">Zoom In</option>
+              <option value="rotateIn">Rotate In</option>
+              <option value="flipInX">Flip In X</option>
+              <option value="flipInY">Flip In Y</option>
+              <option value="lightSpeedIn">Light Speed In</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Animação de Saída:</label>
+            <select id="exit-animation">
+              <option value="fadeOut">Fade Out</option>
+              <option value="slideOutDown">Slide Out Down</option>
+              <option value="bounceOut">Bounce Out</option>
+              <option value="zoomOut">Zoom Out</option>
+              <option value="rotateOut">Rotate Out</option>
+              <option value="flipOutX">Flip Out X</option>
+              <option value="flipOutY">Flip Out Y</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Velocidade:</label>
+            <select id="animation-speed">
+              <option value="slow">Lenta</option>
+              <option value="normal">Normal</option>
+              <option value="fast">Rápida</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Delay (ms):</label>
+            <input type="number" id="animation-delay" value="100" min="0" max="2000" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabelas com animações -->
+      <div class="editor-section">
+        <h3>Tabelas com Animações</h3>
+        <div class="table-controls">
+          <button id="btn-add-table" class="btn-secondary">Adicionar Tabela</button>
+          <select id="table-type">
+            <option value="top-movies">Top 10 Filmes</option>
+            <option value="top-actors">Top 10 Atores</option>
+            <option value="movies-by-year">Filmes por Ano</option>
+            <option value="people-by-role">Pessoas por Função</option>
+            <option value="awards">Prêmios e Indicações</option>
+          </select>
+        </div>
+        <div class="tables-container" id="tables-container">
+          <!-- Tabelas serão adicionadas aqui -->
+        </div>
+      </div>
+
+      <!-- Gráficos com animações -->
+      <div class="editor-section">
+        <h3>Gráficos com Animações</h3>
+        <div class="chart-controls">
+          <button id="btn-add-chart" class="btn-secondary">Adicionar Gráfico</button>
+          <select id="chart-type">
+            <option value="bar">Barra</option>
+            <option value="doughnut">Doughnut</option>
+            <option value="line">Linha</option>
+            <option value="pie">Pizza</option>
+          </select>
+          <select id="chart-data">
+            <option value="genres">Filmes por Gênero</option>
+            <option value="years">Filmes por Ano</option>
+            <option value="ratings">Rating Médio por Gênero</option>
+            <option value="roles">Pessoas por Função</option>
+          </select>
+        </div>
+        <div class="charts-container" id="charts-container">
+          <!-- Gráficos serão adicionados aqui -->
+        </div>
+      </div>
+
+      <!-- Efeitos de transição -->
+      <div class="editor-section">
+        <h3>Efeitos de Transição</h3>
+        <div class="transition-controls">
+          <button id="btn-add-transition" class="btn-secondary">Adicionar Transição</button>
+          <select id="transition-type">
+            <option value="fade">Fade</option>
+            <option value="slide">Slide</option>
+            <option value="zoom">Zoom</option>
+            <option value="rotate">Rotate</option>
+            <option value="bounce">Bounce</option>
+          </select>
+          <select id="transition-direction">
+            <option value="left">Esquerda</option>
+            <option value="right">Direita</option>
+            <option value="up">Cima</option>
+            <option value="down">Baixo</option>
+          </select>
+        </div>
+        <div class="transitions-container" id="transitions-container">
+          <!-- Transições serão adicionadas aqui -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Pré-visualização -->
+    <div class="preview-section" id="preview-section" style="display:none;">
+      <h3>Pré-visualização do Template</h3>
+      <iframe id="preview-frame" width="100%" height="600px"></iframe>
+    </div>
+
+    <!-- Modal para carregar template -->
+    <div class="modal" id="load-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Carregar Template</h3>
+        <select id="template-list">
+          <option value="">Selecione um template salvo...</option>
+        </select>
+        <div class="modal-actions">
+          <button id="btn-load-selected" class="btn-primary">Carregar</button>
+          <button id="btn-cancel-load" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="advanced-animations.js"></script>
+</body>
+</html>

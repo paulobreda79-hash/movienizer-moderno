@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relatórios - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="reports.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <div class="reports-container">
+
+    <!-- Header -->
+    <header class="reports-header">
+      <h1>Relatórios e Estatísticas</h1>
+      <div class="header-actions">
+        <button id="btn-generate-pdf" class="btn-primary">Gerar Relatório em PDF</button>
+        <button id="btn-export-data" class="btn-secondary">Exportar Dados (JSON)</button>
+      </div>
+    </header>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>Período:</label>
+        <select id="filter-period">
+          <option value="all">Todos os anos</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="last-5-years">Últimos 5 anos</option>
+          <option value="last-year">Último ano</option>
+          <option value="last-month">Último mês</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Tipo de Relatório:</label>
+        <select id="filter-report-type">
+          <option value="summary">Resumo Geral</option>
+          <option value="movies">Relatório de Filmes</option>
+          <option value="people">Relatório de Pessoas</option>
+          <option value="statistics">Estatísticas Avançadas</option>
+          <option value="awards">Prêmios e Indicações</option>
+          <option value="streaming">Disponibilidade em Plataformas</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Gênero:</label>
+        <select id="filter-genre">
+          <option value="all">Todos os gêneros</option>
+          <option value="action">Ação</option>
+          <option value="comedy">Comédia</option>
+          <option value="drama">Drama</option>
+          <option value="horror">Terror</option>
+          <option value="sci-fi">Ficção Científica</option>
+          <option value="romance">Romance</option>
+          <option value="thriller">Suspense</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Classificação:</label>
+        <select id="filter-rating">
+          <option value="all">Todas</option>
+          <option value="G">G</option>
+          <option value="PG">PG</option>
+          <option value="PG-13">PG-13</option>
+          <option value="R">R</option>
+          <option value="NC-17">NC-17</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Resumo de Estatísticas -->
+    <div class="summary-stats">
+      <div class="stat-card">
+        <h3>Total de Filmes</h3>
+        <p id="total-movies">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total de Pessoas</h3>
+        <p id="total-people">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Média de Rating</h3>
+        <p id="avg-rating">0.0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Filmes Vistos</h3>
+        <p id="movies-watched">0</p>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="charts-container" id="charts-container">
+      <div class="chart-card">
+        <h3>Filmes por Gênero</h3>
+        <canvas id="chart-genres"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Filmes por Ano</h3>
+        <canvas id="chart-years"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Rating Médio por Gênero</h3>
+        <canvas id="chart-rating-by-genre"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Pessoas por Função</h3>
+        <canvas id="chart-roles"></canvas>
+      </div>
+    </div>
+
+    <!-- Rankings -->
+    <div class="rankings-container" id="rankings-container">
+      <div class="ranking-section">
+        <h3>Top 10 Melhores Filmes</h3>
+        <table id="top-movies-table">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Título</th>
+              <th>Ano</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Linhas serão injetadas aqui -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ranking-section">
+        <h3>Top 10 Atores Mais Atuados</h3>
+        <table id="top-actors-table">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Nome</th>
+              <th>Número de Filmes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Linhas serão injetadas aqui -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Relatório em PDF (oculto) -->
+    <div id="pdf-content" style="display:none;">
+      <div class="pdf-header">
+        <h1>Relatório de Estatísticas - MovieNizer</h1>
+        <p>Data: <span id="report-date"></span></p>
+      </div>
+
+      <div class="pdf-section">
+        <h2>Resumo Geral</h2>
+        <p>Total de Filmes: <span id="pdf-total-movies">0</span></p>
+        <p>Total de Pessoas: <span id="pdf-total-people">0</span></p>
+        <p>Média de Rating: <span id="pdf-avg-rating">0.0</span></p>
+        <p>Filmes Vistos: <span id="pdf-movies-watched">0</span></p>
+      </div>
+
+      <div class="pdf-section">
+        <h2>Filmes por Gênero</h2>
+        <div id="pdf-chart-genres"></div>
+      </div>
+
+      <div class="pdf-section">
+        <h2>Top 10 Melhores Filmes</h2>
+        <table id="pdf-top-movies-table">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Título</th>
+              <th>Ano</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Linhas serão injetadas aqui -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="reports.js"></script>
+</body>
+</html>

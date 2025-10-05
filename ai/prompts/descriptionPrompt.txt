@@ -1,0 +1,7 @@
+Gera uma descrição criativa e envolvente para o filme "{{title}}".
+Géneros: {{genre}}
+Realizado por: {{director}}
+
+Resumo original: {{plot}}
+
+Mantém o texto em português europeu, num tom natural e informativo.

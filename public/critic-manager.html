@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador de Críticas - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="critic-manager.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="critic-manager-container">
+
+    <!-- Header -->
+    <header class="critic-header">
+      <h1>Gerenciador de Críticas</h1>
+      <div class="header-actions">
+        <button id="btn-update-all" class="btn-primary">Atualizar Todos</button>
+        <button id="btn-refresh" class="btn-secondary">Atualizar</button>
+      </div>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="critic-stats">
+      <div class="stat-card">
+        <h3>Total de Ratings</h3>
+        <p id="total-ratings">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Fontes Ativas</h3>
+        <p id="active-sources">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Média Geral</h3>
+        <p id="overall-average">0.0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Última Atualização</h3>
+        <p id="last-update">Nunca</p>
+      </div>
+    </div>
+
+    <!-- Configurações -->
+    <div class="critic-settings">
+      <h3>Configurações de Críticas</h3>
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Atualização Automática:</label>
+          <select id="auto-update-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência:</label>
+          <select id="update-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Fontes Ativas:</label>
+          <div class="sources-checkboxes" id="sources-checkboxes">
+            <!-- Checkboxes serão injetados aqui -->
+          </div>
+        </div>
+        <div class="setting-group">
+          <label>Notificações:</label>
+          <select id="notifications-enabled">
+            <option value="true">Ativadas</option>
+            <option value="false">Desativadas</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-save-settings" class="btn-primary">Salvar Configurações</button>
+    </div>
+
+    <!-- Fontes de Crítica -->
+    <div class="sources-section">
+      <div class="section-header">
+        <h3>Fontes de Crítica</h3>
+        <div class="section-actions">
+          <button id="btn-refresh-sources" class="btn-secondary">Atualizar</button>
+        </div>
+      </div>
+      <div class="sources-grid" id="sources-grid">
+        <!-- Fontes serão injetadas aqui -->
+      </div>
+    </div>
+
+    <!-- Ratings Recentes -->
+    <div class="ratings-section">
+      <div class="section-header">
+        <h3>Ratings Recentes</h3>
+        <div class="section-actions">
+          <select id="filter-source">
+            <option value="all">Todas as Fontes</option>
+            <!-- Opções serão injetadas aqui -->
+          </select>
+          <input type="text" id="search-ratings" placeholder="Buscar ratings..." />
+        </div>
+      </div>
+      <div class="ratings-grid" id="ratings-grid">
+        <!-- Ratings serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Mudanças Recentes -->
+    <div class="changes-section">
+      <div class="section-header">
+        <h3>Mudanças Recentes</h3>
+        <div class="section-actions">
+          <select id="filter-changes-days">
+            <option value="1">Último dia</option>
+            <option value="7" selected>Últimos 7 dias</option>
+            <option value="30">Últimos 30 dias</option>
+          </select>
+        </div>
+      </div>
+      <div class="changes-list" id="changes-list">
+        <!-- Mudanças serão injetadas aqui -->
+      </div>
+    </div>
+
+  </div>
+
+  <script src="critic-manager.js"></script>
+</body>
+</html>

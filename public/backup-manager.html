@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador de Backups - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="backup-manager.css" />
+</head>
+<body>
+
+  <div class="backup-manager-container">
+
+    <!-- Header -->
+    <header class="backup-header">
+      <h1>Gerenciador de Backups</h1>
+      <div class="header-actions">
+        <button id="btn-create-backup" class="btn-primary">+ Criar Backup</button>
+        <button id="btn-refresh" class="btn-secondary">Atualizar</button>
+      </div>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="backup-stats">
+      <div class="stat-card">
+        <h3>Total de Backups</h3>
+        <p id="total-backups">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Espaço Utilizado</h3>
+        <p id="total-size">0 MB</p>
+      </div>
+      <div class="stat-card">
+        <h3>Backups Falhos</h3>
+        <p id="failed-backups">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Último Backup</h3>
+        <p id="last-backup">Nunca</p>
+      </div>
+    </div>
+
+    <!-- Configurações -->
+    <div class="backup-settings">
+      <h3>Configurações de Backup</h3>
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Backup Automático:</label>
+          <select id="auto-backup-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência:</label>
+          <select id="backup-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+            <option value="monthly">Mensalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Retenção (dias):</label>
+          <input type="number" id="retention-days" min="1" max="365" value="30" />
+        </div>
+        <div class="setting-group">
+          <label>Compactação:</label>
+          <select id="compression-enabled">
+            <option value="true">Ativada</option>
+            <option value="false">Desativada</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Criptografia:</label>
+          <select id="encryption-enabled">
+            <option value="true">Ativada</option>
+            <option value="false">Desativada</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Backup na Nuvem:</label>
+          <select id="cloud-backup-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-save-settings" class="btn-primary">Salvar Configurações</button>
+    </div>
+
+    <!-- Lista de Backups -->
+    <div class="backups-section">
+      <div class="section-header">
+        <h3>Backups Disponíveis</h3>
+        <div class="section-actions">
+          <button id="btn-cleanup-old" class="btn-secondary">Limpar Antigos</button>
+        </div>
+      </div>
+      <div class="backups-list" id="backups-list">
+        <!-- Backups serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Modal de Criação de Backup -->
+    <div class="modal" id="create-backup-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Criar Novo Backup</h3>
+        <div class="backup-options">
+          <div class="option-group">
+            <label>
+              <input type="checkbox" id="include-movies" checked />
+              Incluir Filmes
+            </label>
+          </div>
+          <div class="option-group">
+            <label>
+              <input type="checkbox" id="include-people" checked />
+              Incluir Pessoas
+            </label>
+          </div>
+          <div class="option-group">
+            <label>
+              <input type="checkbox" id="include-reminders" checked />
+              Incluir Lembretes
+            </label>
+          </div>
+          <div class="option-group">
+            <label>
+              <input type="checkbox" id="include-favorites" checked />
+              Incluir Favoritos
+            </label>
+          </div>
+          <div class="option-group">
+            <label>
+              <input type="checkbox" id="include-notifications" />
+              Incluir Notificações
+            </label>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-confirm-create" class="btn-primary">Criar Backup</button>
+          <button id="btn-cancel-create" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação de Restauração -->
+    <div class="modal" id="restore-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Restaurar Backup</h3>
+        <p id="restore-warning" class="warning-text">
+          ATENÇÃO: Esta ação substituirá todos os seus dados atuais. 
+          Certifique-se de ter um backup recente antes de prosseguir.
+        </p>
+        <div class="modal-actions">
+          <button id="btn-confirm-restore" class="btn-primary">Restaurar</button>
+          <button id="btn-cancel-restore" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Progresso -->
+    <div class="modal" id="progress-modal" style="display:none;">
+      <div class="modal-content">
+        <h3 id="progress-title">Processando...</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p id="progress-message">Aguarde...</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="backup-manager.js"></script>
+</body>
+</html>

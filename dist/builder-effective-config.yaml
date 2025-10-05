@@ -1,0 +1,94 @@
+directories:
+  output: dist
+  buildResources: assets
+appId: com.movienizer.desktop
+productName: MovieNizer
+copyright: Copyright © 2024 MovieNizer Team
+files:
+  - filter:
+      - public/**/*
+      - server.js
+      - electron-main.js
+      - electron-preload.js
+      - config/**/*
+      - database/**/*
+      - services/**/*
+      - routes/**/*
+      - scripts/**/*
+      - assets/**/*
+      - node_modules/**/*
+      - package.json
+      - '!node_modules/**/*.{ts,map}'
+      - '!node_modules/.cache'
+      - '!node_modules/electron'
+extraMetadata:
+  main: electron-main.js
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+    - target: portable
+      arch:
+        - x64
+  icon: assets/icon.ico
+  publisherName: MovieNizer Team
+  legalTrademarks: MovieNizer
+  requestedExecutionLevel: asInvoker
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: MovieNizer
+  uninstallDisplayName: MovieNizer
+  include: build/installer.nsh
+portable:
+  artifactName: MovieNizer-Portable-${version}.exe
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: assets/icon.icns
+  category: public.app-category.entertainment
+  darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+dmg:
+  icon: assets/icon.icns
+  background: assets/dmg-background.png
+  contents:
+    - x: 130
+      'y': 220
+    - x: 410
+      'y': 220
+      type: link
+      path: /Applications
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+  icon: assets/icon.png
+  category: AudioVideo
+  desktop:
+    Name: MovieNizer
+    Comment: Gestor de Filmes e Séries
+    Categories: AudioVideo;Video;
+    Keywords: movies;tv;series;streaming;
+appImage:
+  artifactName: MovieNizer-${version}.AppImage
+deb:
+  artifactName: MovieNizer-${version}.deb
+publish:
+  provider: github
+  releaseType: release
+compression: normal
+forceCodeSigning: false
+electronVersion: 22.3.27

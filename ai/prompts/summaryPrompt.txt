@@ -1,0 +1,3 @@
+Gera um resumo curto (máx. 2 frases) sobre o filme "{{title}}" com base na descrição:
+
+{{description}}

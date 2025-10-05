@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Busca Avançada de Filmes - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="advanced-search-movies.css" />
+</head>
+<body>
+
+  <div class="advanced-search-container">
+
+    <!-- Header -->
+    <header class="search-header">
+      <h1>Busca Avançada de Filmes</h1>
+      <div class="header-actions">
+        <button id="btn-reset-filters" class="btn-secondary">Limpar Filtros</button>
+        <button id="btn-search" class="btn-primary">Buscar</button>
+      </div>
+    </header>
+
+    <!-- Filtros avançados -->
+    <div class="advanced-filters">
+      <div class="filter-group">
+        <label>Título:</label>
+        <input type="text" id="filter-title" placeholder="Digite o título do filme" />
+      </div>
+
+      <div class="filter-group">
+        <label>Ano de Lançamento:</label>
+        <div class="range-inputs">
+          <input type="number" id="filter-year-min" placeholder="Min" min="1900" max="2024" />
+          <span>até</span>
+          <input type="number" id="filter-year-max" placeholder="Max" min="1900" max="2024" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Gênero:</label>
+        <select id="filter-genre">
+          <option value="all">Todos os gêneros</option>
+          <option value="action">Ação</option>
+          <option value="comedy">Comédia</option>
+          <option value="drama">Drama</option>
+          <option value="horror">Terror</option>
+          <option value="sci-fi">Ficção Científica</option>
+          <option value="romance">Romance</option>
+          <option value="thriller">Suspense</option>
+          <option value="adventure">Aventura</option>
+          <option value="animation">Animação</option>
+          <option value="documentary">Documentário</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>País de Produção:</label>
+        <input type="text" id="filter-country" placeholder="Ex: EUA, Reino Unido..." />
+      </div>
+
+      <div class="filter-group">
+        <label>Estúdio:</label>
+        <input type="text" id="filter-studio" placeholder="Ex: Paramount, Disney..." />
+      </div>
+
+      <div class="filter-group">
+        <label>Realizador:</label>
+        <input type="text" id="filter-director" placeholder="Nome do realizador" />
+      </div>
+
+      <div class="filter-group">
+        <label>Ator:</label>
+        <input type="text" id="filter-actor" placeholder="Nome do ator" />
+      </div>
+
+      <div class="filter-group">
+        <label>Rating IMDb:</label>
+        <div class="range-inputs">
+          <input type="number" id="filter-rating-min" placeholder="Min" min="0" max="10" step="0.1" />
+          <span>até</span>
+          <input type="number" id="filter-rating-max" placeholder="Max" min="0" max="10" step="0.1" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Duração (minutos):</label>
+        <div class="range-inputs">
+          <input type="number" id="filter-duration-min" placeholder="Min" min="0" max="300" />
+          <span>até</span>
+          <input type="number" id="filter-duration-max" placeholder="Max" min="0" max="300" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Classificação Etária:</label>
+        <select id="filter-rating-age">
+          <option value="all">Todas</option>
+          <option value="G">G</option>
+          <option value="PG">PG</option>
+          <option value="PG-13">PG-13</option>
+          <option value="R">R</option>
+          <option value="NC-17">NC-17</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Idioma:</label>
+        <input type="text" id="filter-language" placeholder="Ex: Inglês, Francês..." />
+      </div>
+
+      <div class="filter-group">
+        <label>Prêmios:</label>
+        <select id="filter-awards">
+          <option value="all">Todos</option>
+          <option value="oscar">Oscar</option>
+          <option value="golden-globe">Golden Globe</option>
+          <option value="bafta">BAFTA</option>
+          <option value="palme-dor">Palme d'Or</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Ordenar por:</label>
+        <select id="sort-by">
+          <option value="title">Título (A-Z)</option>
+          <option value="year">Ano (Mais recente primeiro)</option>
+          <option value="rating">Rating IMDb</option>
+          <option value="duration">Duração</option>
+          <option value="popularity">Popularidade</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Botões de ação -->
+    <div class="search-actions">
+      <button id="btn-update-all" class="btn-secondary">Atualizar Todos os Dados</button>
+      <button id="btn-download-results" class="btn-primary">Exportar Resultados</button>
+    </div>
+
+    <!-- Resultados -->
+    <div class="results-container">
+      <h3>Resultados:</h3>
+      <div class="movies-grid" id="results-grid">
+        <!-- Resultados serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <button id="btn-prev" disabled>Anterior</button>
+      <span id="page-info">Página 1 de 1</span>
+      <button id="btn-next">Próxima</button>
+    </div>
+
+  </div>
+
+  <script src="advanced-search-movies.js"></script>
+</body>
+</html>

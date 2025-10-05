@@ -1,0 +1,17 @@
+{
+  "name": "movienizer-desktop",
+  "version": "1.0.0",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "electron": "^30.0.0",
+    "node-fetch": "^3.3.2",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.13.3"
+  }
+}

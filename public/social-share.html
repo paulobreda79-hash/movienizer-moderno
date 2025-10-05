@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compartilhamento Social - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="social-share.css" />
+</head>
+<body>
+
+  <div class="social-share-container">
+
+    <!-- Header -->
+    <header class="social-header">
+      <h1>Compartilhamento Social</h1>
+      <div class="header-actions">
+        <button id="btn-share-all" class="btn-primary">Compartilhar Tudo</button>
+        <button id="btn-refresh" class="btn-secondary">Atualizar</button>
+      </div>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="social-stats">
+      <div class="stat-card">
+        <h3>Total de Compartilhamentos</h3>
+        <p id="total-shares">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Plataformas Ativas</h3>
+        <p id="active-platforms">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Engajamento Total</h3>
+        <p id="total-engagement">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Último Compartilhamento</h3>
+        <p id="last-share">Nunca</p>
+      </div>
+    </div>
+
+    <!-- Configurações -->
+    <div class="social-settings">
+      <h3>Configurações de Compartilhamento</h3>
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Compartilhamento Automático:</label>
+          <select id="auto-share-enabled">
+            <option value="true">Ativado</option>
+            <option value="false">Desativado</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Frequência:</label>
+          <select id="share-frequency">
+            <option value="hourly">A cada hora</option>
+            <option value="daily">Diariamente</option>
+            <option value="weekly">Semanalmente</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Plataformas Ativas:</label>
+          <div class="platforms-checkboxes" id="platforms-checkboxes">
+            <!-- Checkboxes serão injetados aqui -->
+          </div>
+        </div>
+        <div class="setting-group">
+          <label>Notificações:</label>
+          <select id="notifications-enabled">
+            <option value="true">Ativadas</option>
+            <option value="false">Desativadas</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-save-settings" class="btn-primary">Salvar Configurações</button>
+    </div>
+
+    <!-- Plataformas de Compartilhamento -->
+    <div class="platforms-section">
+      <div class="section-header">
+        <h3>Plataformas de Compartilhamento</h3>
+        <div class="section-actions">
+          <button id="btn-refresh-platforms" class="btn-secondary">Atualizar</button>
+        </div>
+      </div>
+      <div class="platforms-grid" id="platforms-grid">
+        <!-- Plataformas serão injetadas aqui -->
+      </div>
+    </div>
+
+    <!-- Compartilhamentos Recentes -->
+    <div class="shares-section">
+      <div class="section-header">
+        <h3>Compartilhamentos Recentes</h3>
+        <div class="section-actions">
+          <select id="filter-platform">
+            <option value="all">Todas as Plataformas</option>
+            <!-- Opções serão injetadas aqui -->
+          </select>
+          <input type="text" id="search-shares" placeholder="Buscar compartilhamentos..." />
+        </div>
+      </div>
+      <div class="shares-list" id="shares-list">
+        <!-- Compartilhamentos serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Engajamento -->
+    <div class="engagement-section">
+      <div class="section-header">
+        <h3>Engajamento</h3>
+        <div class="section-actions">
+          <select id="filter-engagement-type">
+            <option value="all">Todos os Tipos</option>
+            <option value="like">Likes</option>
+            <option value="comment">Comentários</option>
+            <option value="share">Compartilhamentos</option>
+            <option value="follow">Seguidores</option>
+          </select>
+          <input type="text" id="search-engagement" placeholder="Buscar engajamento..." />
+        </div>
+      </div>
+      <div class="engagement-list" id="engagement-list">
+        <!-- Engajamento será injetado aqui -->
+      </div>
+    </div>
+
+  </div>
+
+  <script src="social-share.js"></script>
+</body>
+</html>

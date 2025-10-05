@@ -1,0 +1,33 @@
+/* auto.css */
+
+.theme-auto {
+  /* Herda do sistema */
+}
+
+/* Media queries para detecção automática */
+@media (prefers-color-scheme: dark) {
+  .theme-auto {
+    /* Aplicar estilos do tema escuro */
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-auto {
+    /* Aplicar estilos do tema claro */
+    background-color: #f5f5f5;
+    color: #333333;
+  }
+}
+
+/* Classes específicas para cada tema */
+.theme-auto.theme-light {
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+.theme-auto.theme-dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}

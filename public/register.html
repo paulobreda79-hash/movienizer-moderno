@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-form">
+      <h2>Registro</h2>
+      <form id="register-form">
+        <div class="form-group">
+          <label>Nome de Usuário:</label>
+          <input type="text" id="username" required />
+        </div>
+        <div class="form-group">
+          <label>E-mail:</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label>Senha:</label>
+          <input type="password" id="password" required />
+        </div>
+        <div class="form-group">
+          <label>Confirmar Senha:</label>
+          <input type="password" id="confirm-password" required />
+        </div>
+        <button type="submit" class="btn-primary">Registrar</button>
+      </form>
+      <p class="auth-link">
+        Já tem conta? <a href="/login.html">Faça login</a>
+      </p>
+      <div id="error-message" class="error-message" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+</html>

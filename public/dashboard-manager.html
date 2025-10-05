@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador de Dashboards - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard-manager.css" />
+</head>
+<body>
+
+  <div class="dashboard-manager-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h1>Gerenciador de Dashboards</h1>
+      <div class="header-actions">
+        <button id="btn-create-dashboard" class="btn-primary">+ Criar Dashboard</button>
+        <button id="btn-refresh" class="btn-secondary">Atualizar</button>
+      </div>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <h3>Total de Dashboards</h3>
+        <p id="total-dashboards">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Dashboards Públicos</h3>
+        <p id="public-dashboards">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Último Criado</h3>
+        <p id="last-created">Nunca</p>
+      </div>
+      <div class="stat-card">
+        <h3>Mais Popular</h3>
+        <p id="most-popular">-</p>
+      </div>
+    </div>
+
+    <!-- Lista de Dashboards -->
+    <div class="dashboards-section">
+      <div class="section-header">
+        <h3>Meus Dashboards</h3>
+        <div class="section-actions">
+          <input type="text" id="search-dashboards" placeholder="Buscar dashboards..." />
+          <select id="filter-category">
+            <option value="all">Todas as Categorias</option>
+            <option value="personal">Pessoal</option>
+            <option value="movies">Filmes</option>
+            <option value="people">Pessoas</option>
+            <option value="streaming">Streaming</option>
+            <option value="analytics">Analytics</option>
+          </select>
+        </div>
+      </div>
+      <div class="dashboards-grid" id="dashboards-grid">
+        <!-- Dashboards serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Widgets Disponíveis -->
+    <div class="widgets-section">
+      <div class="section-header">
+        <h3>Widgets Disponíveis</h3>
+        <div class="section-actions">
+          <button id="btn-refresh-widgets" class="btn-secondary">Atualizar</button>
+        </div>
+      </div>
+      <div class="widgets-grid" id="widgets-grid">
+        <!-- Widgets serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Modal de Criação de Dashboard -->
+    <div class="modal" id="create-dashboard-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Criar Novo Dashboard</h3>
+        <form id="create-dashboard-form">
+          <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="dashboard-name" required />
+          </div>
+          <div class="form-group">
+            <label>Descrição:</label>
+            <textarea id="dashboard-description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Layout:</label>
+            <select id="dashboard-layout">
+              <option value="grid">Grade</option>
+              <option value="flex">Flexível</option>
+              <option value="masonry">Alvenaria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="dashboard-public" />
+              Tornar público
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="dashboard-allow-sharing" />
+              Permitir compartilhamento
+            </label>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Criar Dashboard</button>
+            <button type="button" id="btn-cancel-create" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Edição de Dashboard -->
+    <div class="modal" id="edit-dashboard-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Editar Dashboard</h3>
+        <form id="edit-dashboard-form">
+          <input type="hidden" id="edit-dashboard-id" />
+          <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="edit-dashboard-name" required />
+          </div>
+          <div class="form-group">
+            <label>Descrição:</label>
+            <textarea id="edit-dashboard-description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Layout:</label>
+            <select id="edit-dashboard-layout">
+              <option value="grid">Grade</option>
+              <option value="flex">Flexível</option>
+              <option value="masonry">Alvenaria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="edit-dashboard-public" />
+              Tornar público
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="edit-dashboard-allow-sharing" />
+              Permitir compartilhamento
+            </label>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Salvar Alterações</button>
+            <button type="button" id="btn-cancel-edit" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="dashboard-manager.js"></script>
+</body>
+</html>

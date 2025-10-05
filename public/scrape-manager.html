@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciador de Scrapers - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="scrape-manager.css" />
+</head>
+<body>
+
+  <div class="scrape-manager-container">
+
+    <!-- Header -->
+    <header class="manager-header">
+      <h1>Gerenciador de Scrapers</h1>
+      <div class="header-actions">
+        <button id="btn-run-all" class="btn-primary">Executar Todos</button>
+        <button id="btn-clear-cache" class="btn-secondary">Limpar Cache</button>
+      </div>
+    </header>
+
+    <!-- Status dos Scrapers -->
+    <div class="scrapers-status">
+      <h3>Status dos Scrapers</h3>
+      <div id="scrapers-list">
+        <!-- Status será injetado aqui -->
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <div class="controls-section">
+      <div class="control-group">
+        <label>Atualizar Filmes:</label>
+        <button id="btn-update-movies" class="btn-secondary">Atualizar</button>
+      </div>
+      <div class="control-group">
+        <label>Atualizar Pessoas:</label>
+        <button id="btn-update-people" class="btn-secondary">Atualizar</button>
+      </div>
+      <div class="control-group">
+        <label>Atualizar Streaming:</label>
+        <button id="btn-update-streaming" class="btn-secondary">Atualizar</button>
+      </div>
+    </div>
+
+    <!-- Log de Atualizações -->
+    <div class="log-section">
+      <h3>Log de Atualizações</h3>
+      <div id="log-output" class="log-output">
+        <!-- Logs serão injetados aqui -->
+      </div>
+    </div>
+
+  </div>
+
+  <script src="scrape-manager.js"></script>
+</body>
+</html>

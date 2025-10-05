@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - MovieNizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard-view.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="dashboard-view-container">
+
+    <!-- Header -->
+    <header class="dashboard-view-header">
+      <h1 id="dashboard-title">Meu Dashboard</h1>
+      <div class="header-actions">
+        <button id="btn-edit-dashboard" class="btn-secondary">Editar Dashboard</button>
+        <button id="btn-add-widget" class="btn-primary">+ Adicionar Widget</button>
+        <button id="btn-refresh-dashboard" class="btn-secondary">Atualizar</button>
+        <button id="btn-export-dashboard" class="btn-secondary">Exportar</button>
+        <button id="btn-share-dashboard" class="btn-secondary">Compartilhar</button>
+      </div>
+    </header>
+
+    <!-- Área de Widgets -->
+    <div class="widgets-area" id="widgets-area">
+      <!-- Widgets serão injetados aqui -->
+    </div>
+
+    <!-- Modal de Adição de Widget -->
+    <div class="modal" id="add-widget-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Adicionar Widget</h3>
+        <div class="widgets-list" id="available-widgets">
+          <!-- Widgets disponíveis serão injetados aqui -->
+        </div>
+        <div class="modal-actions">
+          <button id="btn-cancel-add-widget" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Configuração de Widget -->
+    <div class="modal" id="configure-widget-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Configurar Widget</h3>
+        <form id="widget-config-form">
+          <div class="form-group">
+            <label>Título:</label>
+            <input type="text" id="widget-title" required />
+          </div>
+          <div class="form-group">
+            <label>Largura:</label>
+            <select id="widget-width">
+              <option value="2">Pequeno (2 colunas)</option>
+              <option value="4" selected>Médio (4 colunas)</option>
+              <option value="6">Grande (6 colunas)</option>
+              <option value="8">Extra Grande (8 colunas)</option>
+              <option value="12">Full Width (12 colunas)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Altura:</label>
+            <select id="widget-height">
+              <option value="2">Pequena (2 linhas)</option>
+              <option value="4" selected>Média (4 linhas)</option>
+              <option value="6">Grande (6 linhas)</option>
+              <option value="8">Extra Grande (8 linhas)</option>
+            </select>
+          </div>
+          <!-- Configurações específicas do widget serão injetadas aqui -->
+          <div id="specific-config"></div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Adicionar Widget</button>
+            <button type="button" id="btn-cancel-config" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Edição de Dashboard -->
+    <div class="modal" id="edit-dashboard-modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Editar Dashboard</h3>
+        <form id="edit-dashboard-form">
+          <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="edit-dashboard-name" required />
+          </div>
+          <div class="form-group">
+            <label>Descrição:</label>
+            <textarea id="edit-dashboard-description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Layout:</label>
+            <select id="edit-dashboard-layout">
+              <option value="grid">Grade</option>
+              <option value="flex">Flexível</option>
+              <option value="masonry">Alvenaria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="edit-dashboard-public" />
+              Tornar público
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="edit-dashboard-allow-sharing" />
+              Permitir compartilhamento
+            </label>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Salvar Alterações</button>
+            <button type="button" id="btn-cancel-edit" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="dashboard-view.js"></script>
+</body>
+</html>

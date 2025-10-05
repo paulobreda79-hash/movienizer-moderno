@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MovieNizer - Sua Coleção de Filmes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="main-container">
+
+    <!-- Header -->
+    <header class="main-header">
+      <h1>MovieNizer</h1>
+      <div class="header-actions">
+        <button id="btn-search" class="btn-secondary">Buscar</button>
+        <button id="btn-add" class="btn-primary">Adicionar Filme</button>
+      </div>
+    </header>
+
+    <!-- Barra de navegação -->
+    <nav class="main-nav">
+      <a href="#" id="nav-dashboard" class="nav-item active">Dashboard</a>
+      <a href="#" id="nav-movies" class="nav-item">Filmes</a>
+      <a href="#" id="nav-people" class="nav-item">Pessoas</a>
+      <a href="#" id="nav-search" class="nav-item">Busca Avançada</a>
+      <a href="#" id="nav-reports" class="nav-item">Relatórios</a>
+      <a href="#" id="nav-settings" class="nav-item">Configurações</a>
+    </nav>
+
+    <!-- Seção de Estatísticas -->
+    <div class="stats-section">
+      <div class="stat-card">
+        <h3>Total de Filmes</h3>
+        <p id="total-movies">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total de Pessoas</h3>
+        <p id="total-people">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Média de Rating</h3>
+        <p id="avg-rating">0.0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Filmes Vistos</h3>
+        <p id="movies-watched">0</p>
+      </div>
+    </div>
+
+    <!-- Gráfico de Filmes por Gênero -->
+    <div class="chart-section">
+      <h3>Filmes por Gênero</h3>
+      <canvas id="genre-chart"></canvas>
+    </div>
+
+    <!-- Últimos Filmes Adicionados -->
+    <div class="recent-section">
+      <div class="section-header">
+        <h3>Últimos Filmes Adicionados</h3>
+        <a href="/movies-list.html" class="view-all">Ver Todos</a>
+      </div>
+      <div class="movies-grid" id="recent-movies">
+        <!-- Filmes serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Filmes Mais Bem Avaliados -->
+    <div class="top-section">
+      <div class="section-header">
+        <h3>Filmes Mais Bem Avaliados</h3>
+        <a href="/movies-list.html?sort=rating" class="view-all">Ver Todos</a>
+      </div>
+      <div class="movies-grid" id="top-rated-movies">
+        <!-- Filmes serão injetados aqui -->
+      </div>
+    </div>
+
+    <!-- Pessoas Favoritas -->
+    <div class="favorites-section">
+      <div class="section-header">
+        <h3>Pessoas Favoritas</h3>
+        <a href="/people-list.html?favorite=true" class="view-all">Ver Todos</a>
+      </div>
+      <div class="people-grid" id="favorite-people">
+        <!-- Pessoas serão injetadas aqui -->
+      </div>
+    </div>
+
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
