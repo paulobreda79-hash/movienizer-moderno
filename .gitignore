@@ -1,0 +1,71 @@
+# Node.js
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Electron build artifacts
+dist
+build
+out
+release
+.exe
+.dll
+.dmg
+.app
+.deb
+.rpm
+.snap
+.msi
+.pkg
+.bin
+.iso
+.zip
+.tar.gz
+.asar
+.pak
+.so
+.env
+.env.local
+.env.production
+.env.development
+
+# Electron runtime files
+resources.pak
+snapshot_blob.bin
+v8_context_snapshot.bin
+chrome_.pak
+LICENSE
+locales
+swiftshader
+vk_swiftshader_.json
+
+# IDEs and editors
+.vscode
+.idea
+.sublime-workspace
+.sublime-project
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Git LFS tracked files (optional)
+.psd
+.mp4
+.mov
+.avi
+.woff
+.woff2
+.ttf
+.eot
+
+# Logs and temp
+.log
+.tmp
+.bak
+.swp
+
+# Others
+electron.d.ts
