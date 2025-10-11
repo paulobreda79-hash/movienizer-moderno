@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar/Atualizar Filme</title>
+  <link rel="stylesheet" href="add-movie.css">
+</head>
+<body>
+  <div class="window-container">
+    <div class="main-content">
+      <h1>Adicionar um Novo Filme</h1>
+      <p class="subtitle">Escolha uma forma de adicionar o filme e escreva o seu título.</p>
+
+      <form id="form-add-movie">
+        <fieldset class="add-options">
+          <legend>Escolha uma opção para adicionar filmes:</legend>
+          <div>
+            <input type="radio" id="byTitle" name="add_option" value="title" checked>
+            <label for="byTitle">Por título</label>
+          </div>
+          <div>
+            <input type="radio" id="byBarcode" name="add_option" value="barcode">
+            <label for="byBarcode">Por código de barras</label>
+          </div>
+          <div>
+            <input type="radio" id="byFolder" name="add_option" value="folder">
+            <label for="byFolder">Pasta DVD/Blu-ray</label>
+          </div>
+          <div>
+            <input type="radio" id="byFiles" name="add_option" value="files">
+            <label for="byFiles">Ficheiros e pastas</label>
+          </div>
+        </fieldset>
+
+        <div class="title-input-area">
+          <label for="movieTitles">Introduza títulos de filmes:</label>
+          <textarea id="movieTitles" name="movieTitles" rows="8" required></textarea>
+        </div>
+
+        <footer class="window-footer">
+          <a href="#" class="options-link">Opções...</a>
+          <div class="footer-buttons">
+            <button type="submit" class="btn btn-primary">Seguinte &gt;</button>
+            <button type="reset" class="btn">Cancelar</button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <script src="formulario.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar/Atualizar Pessoa</title>
+  <link rel="stylesheet" href="add-movie.css">
+</head>
+<body>
+  <div class="window-container">
+    <div class="main-content">
+      <h1>Adicionar uma Nova Pessoa</h1>
+      <p class="subtitle">Insira os dados da pessoa que deseja adicionar à coleção.</p>
+
+      <form id="form-add-person">
+        <fieldset class="add-options">
+          <legend>Tipo de pessoa:</legend>
+          <div>
+            <input type="radio" id="person-actor" name="person_type" value="ator" checked>
+            <label for="person-actor">Ator/Atriz</label>
+          </div>
+          <div>
+            <input type="radio" id="person-director" name="person_type" value="realizador">
+            <label for="person-director">Realizador</label>
+          </div>
+          <div>
+            <input type="radio" id="person-writer" name="person_type" value="escritor">
+            <label for="person-writer">Escritor</label>
+          </div>
+          <div>
+            <input type="radio" id="person-composer" name="person_type" value="compositor">
+            <label for="person-composer">Compositor</label>
+          </div>
+        </fieldset>
+
+        <div class="title-input-area">
+          <label for="personName">Nome completo:</label>
+          <input type="text" id="personName" name="personName" required autocomplete="off" />
+        </div>
+
+        <div class="title-input-area">
+          <label for="personBirth">Ano de nascimento:</label>
+          <input type="number" id="personBirth" name="personBirth" min="1900" max="2100" />
+        </div>
+
+        <div class="title-input-area">
+          <label for="personBio">Biografia ou observações:</label>
+          <textarea id="personBio" name="personBio" rows="4"></textarea>
+        </div>
+
+        <footer class="window-footer">
+          <a href="#" class="options-link">Opções...</a>
+          <div class="footer-buttons">
+            <button type="submit" class="btn btn-primary">Seguinte &gt;</button>
+            <button type="reset" class="btn">Cancelar</button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+
+</body>
+</html>
