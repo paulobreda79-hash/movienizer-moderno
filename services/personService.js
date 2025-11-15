@@ -70,6 +70,62 @@ class PersonService {
       throw error;
     }
   }
+
+  static async updatePersonAwards(id, name) {
+    try {
+      const IMDBScraper = require('../scrapers/imdbScraper');
+      const axios = require('axios');
+      const cheerio = require('cheerio');
+      
+      console.log(`Searching IMDB for: ${name}`);
+      
+      // Search for person on IMDB
+      const searchUrl = `https://www.imdb.com/find?q=${encodeURIComponent(name)}&s=nm`;
+      const response = await axios.get(searchUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7'
+        }
+      });
+
+      const $ = cheerio.load(response.data);
+      
+      // Try multiple selectors for IMDB search results (their structure changes)
+      let firstResult = $('td.result_text a').first().attr('href') ||
+                        $('.ipc-metadata-list-summary-item__t').first().attr('href') ||
+                        $('a[href*="/name/nm"]').first().attr('href');
+
+      if (!firstResult) {
+        console.error('No search results found on IMDB');
+        throw new Error('Pessoa não encontrada no IMDB');
+      }
+
+      // Ensure we have a full URL
+      const personUrl = firstResult.startsWith('http') ? firstResult : `https://www.imdb.com${firstResult}`;
+      console.log(`Found person URL: ${personUrl}`);
+      
+      // Get awards
+      console.log('Fetching awards...');
+      const awardsData = await IMDBScraper.getPersonAwards(personUrl);
+      
+      console.log(`Awards fetched: ${awardsData.summary.won} wins, ${awardsData.summary.nominated} nominations, ${awardsData.awards.length} detailed awards`);
+      
+      // Update person with awards
+      const person = await this.getPersonById(id);
+      person.awards = awardsData;
+      
+      await Person.update(id, person);
+      
+      console.log('Awards updated in database');
+      
+      return awardsData;
+    } catch (error) {
+      console.error('Erro ao atualizar prémios da pessoa:', error.message);
+      console.error('Stack:', error.stack);
+      throw error;
+    }
+  }
 }
 
 module.exports = PersonService;

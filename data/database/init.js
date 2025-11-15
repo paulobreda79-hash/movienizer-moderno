@@ -77,6 +77,7 @@ function createTables() {
       image TEXT,
       links TEXT,
       movies TEXT,
+      awards TEXT,
       watched BOOLEAN DEFAULT 0,
       favorite BOOLEAN DEFAULT 0,
       followed BOOLEAN DEFAULT 0,

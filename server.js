@@ -36,6 +36,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/movies', require('./routes/movies'));
 app.use('/api/people', require('./routes/people'));
 app.use('/api/scrape', require('./routes/scrape'));
+app.use('/api/download', require('./routes/download'));
 app.use('/api/cache', require('./routes/cache'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/reminders', require('./routes/reminders'));

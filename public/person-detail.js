@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-delete').addEventListener('click', deletePerson);
   document.getElementById('btn-refresh-image').addEventListener('click', updatePersonDetails);
   document.getElementById('btn-cancel-edit').addEventListener('click', hideEditModal);
+  document.getElementById('btn-update-awards').addEventListener('click', updatePersonAwards);
 
   document.getElementById('edit-form').addEventListener('submit', savePersonChanges);
 
@@ -32,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.tab).classList.add('active');
+      
+      // Load awards when awards tab is clicked
+      if (tab.dataset.tab === 'awards') {
+        loadPersonAwards(personId);
+      }
     });
   });
 });
@@ -296,5 +302,79 @@ async function updatePersonDetails() {
   } catch (error) {
     console.error('Erro ao atualizar informações:', error);
     alert('Erro ao atualizar informações.');
+  }
+}
+
+// Função para carregar prémios da pessoa
+async function loadPersonAwards(id) {
+  try {
+    const response = await fetch(`/api/people/${id}`);
+    if (!response.ok) {
+      throw new Error(`Erro: ${response.status}`);
+    }
+    const person = await response.json();
+    
+    displayPersonAwards(person.awards || { awards: [], summary: { won: 0, nominated: 0 } });
+  } catch (error) {
+    console.error('Erro ao carregar prémios:', error);
+    document.getElementById('awards-summary').innerHTML = '<p>Erro ao carregar prémios.</p>';
+  }
+}
+
+// Função para exibir prémios da pessoa
+function displayPersonAwards(awardsData) {
+  const summaryEl = document.getElementById('awards-summary');
+  const listEl = document.getElementById('awards-list');
+  
+  const { awards, summary } = awardsData;
+  
+  // Display summary
+  summaryEl.innerHTML = `<p>${document.getElementById('person-name').textContent} ganhou ${summary.won} prémio(s) e foi nomeado ${summary.nominated} vez(es).</p>`;
+  
+  // Display awards list
+  if (awards && awards.length > 0) {
+    listEl.innerHTML = '';
+    awards.forEach(award => {
+      const awardEl = document.createElement('div');
+      awardEl.className = 'award-item';
+      awardEl.innerHTML = `
+        <h4>🏆 ${award.award} (${award.year})</h4>
+        <p>${award.category}${award.movie ? ` — "${award.movie}"` : ''} <strong>${award.outcome}</strong></p>
+      `;
+      listEl.appendChild(awardEl);
+    });
+  } else {
+    listEl.innerHTML = '<p>Nenhum prémio encontrado. Clique em "Atualizar" para buscar informações.</p>';
+  }
+}
+
+// Função para atualizar prémios da pessoa
+async function updatePersonAwards() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const personId = urlParams.get('id');
+  const btn = document.getElementById('btn-update-awards');
+  
+  try {
+    btn.disabled = true;
+    btn.textContent = '⏳ Atualizando...';
+    
+    const response = await fetch(`/api/people/${personId}/update-awards`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro: ${response.status}`);
+    }
+
+    const result = await response.json();
+    displayPersonAwards(result.awards);
+    alert('Prémios atualizados com sucesso!');
+  } catch (error) {
+    console.error('Erro ao atualizar prémios:', error);
+    alert('Erro ao atualizar prémios: ' + error.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔁 Atualizar';
   }
 }
