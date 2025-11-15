@@ -128,14 +128,21 @@ class IMDBScraper {
     try {
       // Extract person ID from URL
       const personIdMatch = personUrl.match(/\/name\/(nm\d+)/);
-      if (!personIdMatch) return [];
+      if (!personIdMatch) {
+        return {
+          awards: [],
+          summary: { won: 0, nominated: 0 }
+        };
+      }
 
       const personId = personIdMatch[1];
       const awardsUrl = `https://www.imdb.com/name/${personId}/awards`;
       
       const response = await axios.get(awardsUrl, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7'
         }
       });
       
@@ -144,65 +151,93 @@ class IMDBScraper {
       let wonCount = 0;
       let nominatedCount = 0;
 
-      // Parse awards table
-      $('.awards-table').each((i, table) => {
-        const awardName = $(table).find('.award-title').first().text().trim();
+      // Modern IMDB uses table structures with specific patterns
+      // Look for all tables on the awards page
+      $('table').each((i, table) => {
+        const $table = $(table);
         
-        $(table).find('.award-row').each((j, row) => {
-          const year = $(row).find('.award-year').text().trim();
-          const category = $(row).find('.award-category').text().trim();
-          const movie = $(row).find('.award-title-link').text().trim();
-          const outcome = $(row).find('.award-outcome').text().trim();
+        // Get the award name from the heading before the table
+        let awardName = $table.prev('h3').text().trim() || 
+                        $table.prev('h2').text().trim() || 
+                        $table.prevAll('h3').first().text().trim() ||
+                        $table.prevAll('h2').first().text().trim() ||
+                        'Award';
+        
+        // Clean up award name
+        awardName = awardName.split('\n')[0].trim();
+        
+        // Process each row in the table
+        $table.find('tr').each((j, row) => {
+          const $row = $(row);
+          const cells = $row.find('td');
           
-          const isWinner = outcome.toLowerCase().includes('won') || 
-                          outcome.toLowerCase().includes('ganhou') ||
-                          $(row).hasClass('winner');
-          
-          if (isWinner) {
-            wonCount++;
-          } else {
-            nominatedCount++;
-          }
+          if (cells.length >= 2) {
+            // First cell usually has the year or outcome
+            const firstCellText = $(cells[0]).text().trim();
+            const secondCellText = $(cells[1]).text().trim();
+            
+            // Check if this is a winner row
+            const rowClass = $row.attr('class') || '';
+            const isWinner = rowClass.includes('award_win') || 
+                            rowClass.includes('winner') ||
+                            secondCellText.toLowerCase().includes('won') ||
+                            secondCellText.toLowerCase().includes('winner') ||
+                            $row.find('.award_win').length > 0;
+            
+            // Extract year (4 digits)
+            const yearMatch = firstCellText.match(/\b(19|20)\d{2}\b/) || 
+                            secondCellText.match(/\b(19|20)\d{2}\b/);
+            const year = yearMatch ? yearMatch[0] : '';
+            
+            // Extract category and movie info
+            let category = secondCellText;
+            let movie = '';
+            
+            // Try to extract movie name (usually in quotes or after "For")
+            const movieMatch = secondCellText.match(/["']([^"']+)["']/) ||
+                              secondCellText.match(/For\s+(.+?)(?:\n|$)/i);
+            if (movieMatch) {
+              movie = movieMatch[1].trim();
+            }
+            
+            // Clean up category
+            category = category.split('\n')[0].trim();
+            if (category.length > 100) {
+              category = category.substring(0, 100) + '...';
+            }
+            
+            // Only add if we have meaningful data
+            if (year && category && category.length > 3) {
+              if (isWinner) {
+                wonCount++;
+              } else {
+                nominatedCount++;
+              }
 
-          awards.push({
-            award: awardName || 'Unknown Award',
-            year: year || 'Unknown',
-            category: category || 'Unknown Category',
-            movie: movie || '',
-            outcome: isWinner ? 'Ganhou' : 'Nomeado'
-          });
+              awards.push({
+                award: awardName,
+                year,
+                category,
+                movie,
+                outcome: isWinner ? 'Ganhou' : 'Nomeado'
+              });
+            }
+          }
         });
       });
 
-      // Alternative parsing if the above doesn't work
+      // If we didn't find awards in tables, try to extract from page text
       if (awards.length === 0) {
-        $('table').each((i, table) => {
-          $(table).find('tr').each((j, row) => {
-            const cells = $(row).find('td');
-            if (cells.length >= 2) {
-              const year = $(cells[0]).text().trim();
-              const description = $(cells[1]).text().trim();
-              
-              // Check if it's a win or nomination
-              const isWinner = description.toLowerCase().includes('won') || 
-                              description.toLowerCase().includes('winner') ||
-                              $(row).hasClass('award_win');
-              
-              if (year && description) {
-                if (isWinner) wonCount++;
-                else nominatedCount++;
-
-                awards.push({
-                  award: 'Award',
-                  year,
-                  category: description.split('\n')[0] || description,
-                  movie: '',
-                  outcome: isWinner ? 'Ganhou' : 'Nomeado'
-                });
-              }
-            }
-          });
-        });
+        const pageText = $('body').text();
+        
+        // Try to find wins and nominations count in page text
+        const winsMatch = pageText.match(/(\d+)\s+wins?/i);
+        const nomsMatch = pageText.match(/(\d+)\s+nominations?/i);
+        
+        if (winsMatch) wonCount = parseInt(winsMatch[1]);
+        if (nomsMatch) nominatedCount = parseInt(nomsMatch[1]);
+        
+        console.log(`Extracted from text: ${wonCount} wins, ${nominatedCount} nominations`);
       }
 
       return {
