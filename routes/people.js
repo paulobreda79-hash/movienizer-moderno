@@ -96,4 +96,19 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// POST /api/people/:id/update-awards
+router.post('/:id/update-awards', async (req, res) => {
+  try {
+    const person = await PersonService.getPersonById(req.params.id);
+    if (!person) {
+      return res.status(404).json({ error: 'Pessoa não encontrada' });
+    }
+    
+    const updatedAwards = await PersonService.updatePersonAwards(req.params.id, person.name);
+    res.json({ success: true, awards: updatedAwards });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;

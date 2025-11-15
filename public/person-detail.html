@@ -71,12 +71,13 @@
 
     </div>
 
-    <!-- Abas: Geral, Biografia, Filmes -->
+    <!-- Abas: Geral, Biografia, Filmes, Prémios -->
     <div class="tabs-container">
       <div class="tab-bar">
         <button class="tab active" data-tab="general">Geral</button>
         <button class="tab" data-tab="biography">Biografia</button>
         <button class="tab" data-tab="movies">Filmes</button>
+        <button class="tab" data-tab="awards">Prémios</button>
       </div>
 
       <div class="tab-content">
@@ -130,6 +131,20 @@
             <li><a href="#" data-id="2">Apocalypse Now</a> — <span>1979</span></li>
             <li><a href="#" data-id="3">Touro Indomável</a> — <span>1980</span></li>
           </ul>
+        </div>
+
+        <!-- Aba Prémios -->
+        <div id="awards" class="tab-pane">
+          <div class="awards-header">
+            <h3>🏆 Prémios e Nomeações</h3>
+            <button id="btn-update-awards" class="btn-small">🔁 Atualizar</button>
+          </div>
+          <div id="awards-summary" class="awards-summary">
+            <p>A carregar...</p>
+          </div>
+          <div id="awards-list" class="awards-list">
+            <!-- Awards will be loaded here -->
+          </div>
         </div>
 
       </div>

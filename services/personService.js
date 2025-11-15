@@ -70,6 +70,45 @@ class PersonService {
       throw error;
     }
   }
+
+  static async updatePersonAwards(id, name) {
+    try {
+      const IMDBScraper = require('../scrapers/imdbScraper');
+      
+      // Search for person on IMDB
+      const searchUrl = `https://www.imdb.com/find?q=${encodeURIComponent(name)}&s=nm`;
+      const axios = require('axios');
+      const response = await axios.get(searchUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+      });
+
+      const cheerio = require('cheerio');
+      const $ = cheerio.load(response.data);
+      const firstResult = $('td.result_text a').first().attr('href');
+
+      if (!firstResult) {
+        throw new Error('Pessoa não encontrada no IMDB');
+      }
+
+      const personUrl = `https://www.imdb.com${firstResult}`;
+      
+      // Get awards
+      const awardsData = await IMDBScraper.getPersonAwards(personUrl);
+      
+      // Update person with awards
+      const person = await this.getPersonById(id);
+      person.awards = awardsData;
+      
+      await Person.update(id, person);
+      
+      return awardsData;
+    } catch (error) {
+      console.error('Erro ao atualizar prémios da pessoa:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = PersonService;

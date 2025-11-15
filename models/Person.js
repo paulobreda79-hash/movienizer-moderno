@@ -23,8 +23,8 @@ class Person {
     const stmt = db.prepare(`
       INSERT INTO people (
         name, full_name, birth_date, birth_place, role, height, nickname,
-        biography, image, links, movies, watched, favorite, followed
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        biography, image, links, movies, awards, watched, favorite, followed
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const result = stmt.run(
@@ -39,6 +39,7 @@ class Person {
       personData.image,
       JSON.stringify(personData.links || []),
       JSON.stringify(personData.movies || []),
+      JSON.stringify(personData.awards || []),
       personData.watched || 0,
       personData.favorite || 0,
       personData.followed || 0
@@ -51,7 +52,7 @@ class Person {
     const stmt = db.prepare(`
       UPDATE people SET
         name = ?, full_name = ?, birth_date = ?, birth_place = ?, role = ?, height = ?, nickname = ?,
-        biography = ?, image = ?, links = ?, movies = ?, watched = ?, favorite = ?, followed = ?,
+        biography = ?, image = ?, links = ?, movies = ?, awards = ?, watched = ?, favorite = ?, followed = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `);
@@ -68,6 +69,7 @@ class Person {
       personData.image,
       JSON.stringify(personData.links || []),
       JSON.stringify(personData.movies || []),
+      JSON.stringify(personData.awards || []),
       personData.watched || 0,
       personData.favorite || 0,
       personData.followed || 0,
@@ -134,7 +136,8 @@ class Person {
     return {
       ...person,
       links: person.links ? JSON.parse(person.links) : [],
-      movies: person.movies ? JSON.parse(person.movies) : []
+      movies: person.movies ? JSON.parse(person.movies) : [],
+      awards: person.awards ? JSON.parse(person.awards) : []
     };
   }
 }
